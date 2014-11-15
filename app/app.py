@@ -40,19 +40,19 @@ Note:  these are the 'modified' tags used for Penn tree banking; these are the t
 36.	WRB	Wh-adverb
 
 """
-
+import os
 from flask import Flask, jsonify
 from textblob import TextBlob
-
-from utils import crossdomain
 
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route("/api/<q>", methods=['GET', 'OPTIONS'])
-@crossdomain(origin='*')
-def index(q):
+def api(q):
     query = TextBlob(q)
     for sentense in query.sentences:
         # do some spell correction before adding it to the list
@@ -75,7 +75,6 @@ def index(q):
         'body': q,
         'sentiment': query.sentiment.polarity
     })
-
 
 if __name__ == "__main__":
     app.run(debug=True)

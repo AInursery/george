@@ -12,7 +12,7 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'static/views/main.html',
         controller: 'MainCtrl'
       })
       .otherwise({

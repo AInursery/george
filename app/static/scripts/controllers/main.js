@@ -13,7 +13,7 @@ angular.module('georgeApp')
                 author: "Me",
                 body: $scope.msg
             });
-            $http.get('http://localhost:5000/api/' + $scope.msg).
+            $http.get('/api/' + $scope.msg).
                 success(function (data, status, headers, config) {
                     $scope.msg = "";
                     $scope.messages.push(data);

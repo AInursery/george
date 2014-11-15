@@ -1,5 +1,5 @@
 {
-  "extends" : "../js/.jshintrc",
+  "extends" : "static/bower_components/bootstrap/js/.jshintrc",
   "asi"     : false,
   "browser" : false,
   "es3"     : false,
