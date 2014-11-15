@@ -15,6 +15,7 @@ cd george
 virtualenv .
 pip install -r requirements.txt
 npm install
+python -m textblob.download_corpora # install ntlk data for the text corpus
 ```
 
 Running
