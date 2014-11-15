@@ -1,0 +1,6 @@
+applications:
+- name:      test-george
+  host:      test-george
+  memory:    128M	
+  command: python -m textblob.download_corpora && python app/app.py
+buildpack: https://github.com/heroku/heroku-buildpack-python.git
