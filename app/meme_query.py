@@ -13,11 +13,13 @@ def meme_query(query):
         meme_horizontal_gallery = soup.find('ul',
             attrs={'class': u'horizontal'})
         first_meme = meme_horizontal_gallery.find('li')
-        first_meme_img = first_meme.find('img')
-        return first_meme_img['src']
+        if first_meme:
+            first_meme_img = first_meme.find('img')
+            return first_meme_img['src']
+        return
     else:
         # Error : TODO
-        return None
+        return
 
 
 def main():

@@ -3,9 +3,7 @@
         <div class="message-wrap col-lg-12">
             <div class="message-body row" ng-repeat="message in messages">
                 <h5 class="media-heading">{{ message.author }}</h5>
-                <small class="col-lg-10">
-                    {{ message.body }}
-                </small>
+                <small class="col-lg-10" ng-bind-html="message.body"></small>
             </div>
             <br/>
 

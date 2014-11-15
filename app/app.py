@@ -43,6 +43,7 @@ Note:  these are the 'modified' tags used for Penn tree banking; these are the t
 import os
 from flask import Flask, jsonify
 from textblob import TextBlob
+from meme_query import meme_query
 
 
 app = Flask(__name__)
@@ -53,6 +54,7 @@ def index():
 
 @app.route("/api/<q>", methods=['GET', 'OPTIONS'])
 def api(q):
+    search_query = ""
     query = TextBlob(q)
     for sentense in query.sentences:
         # do some spell correction before adding it to the list
@@ -66,13 +68,14 @@ def api(q):
                 if max_occurances < count_noun:
                     max_occurances = count_noun
                     selected_noun = noun
-            print selected_noun
+            search_query = selected_noun
         else:  # it can be an interjection: hello!
-            print sentense
+            search_query = sentense
+    res = meme_query(str(search_query))
 
     return jsonify({
         'author': 'George',
-        'body': q,
+        'body': "<img src='%s' />" % res,
         'sentiment': query.sentiment.polarity
     })
 
