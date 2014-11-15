@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <div class="message-wrap col-lg-12">
+            <div class="message-body row" ng-repeat="message in messages">
+                <h5 class="media-heading">{{ message.author }}</h5>
+                <small class="col-lg-10">
+                    {{ message.body }}
+                </small>
+            </div>
+            <br/>
+
+            <div class="send-wrap">
+                <form ng-submit="msgEntered()">
+                    <input class="form-control send-message" rows="2" ng-model="msg"
+                           placeholder="Write something and hit enter.."/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
