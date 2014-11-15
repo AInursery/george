@@ -15,7 +15,10 @@ def meme_query(query):
         first_meme = meme_horizontal_gallery.find('li')
         if first_meme:
             first_meme_img = first_meme.find('img')
-            return first_meme_img['src']
+            first_meme_title = first_meme.find('a',
+                attrs={'class': u'name'})
+            return {'img': first_meme_img['src'],
+                    'title': first_meme_title['title']}
         return
     else:
         # Error : TODO
@@ -23,7 +26,7 @@ def meme_query(query):
 
 
 def main():
-    meme_query("cold")
+    print(meme_query("cold"))
 
 if __name__ == '__main__':
     main()
