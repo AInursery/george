@@ -40,31 +40,49 @@ Note:  these are the 'modified' tags used for Penn tree banking; these are the t
 36.	WRB	Wh-adverb
 
 """
+
 import os
 from flask import Flask, jsonify
 from textblob import TextBlob
+
 from meme_query import meme_query
 
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
+
 
 @app.route("/api/<q>", methods=['GET', 'OPTIONS'])
 def api(q):
     search_query = ""
     query = TextBlob(q)
+    nouns = []
+    max_occurances = 0
     for sentense in query.sentences:
         # do some spell correction before adding it to the list
         sentense = sentense.correct()
+
+        for word, tag in sentense.tags:
+            if tag.startswith('NN'):
+                nouns.append(word)
+
         if sentense.noun_phrases:
             # Count the number the of time the noun apears in the whole query
-            max_occurances = 0
             selected_noun = sentense.noun_phrases[0]
             for noun in sentense.noun_phrases:
-                count_noun = query.count(noun)
+                count_noun = query.words.count(noun)
+                if max_occurances < count_noun:
+                    max_occurances = count_noun
+                    selected_noun = noun
+            search_query = selected_noun
+        elif nouns:
+            selected_noun = nouns[0]
+            for noun in nouns:
+                count_noun = query.words.count(noun)
                 if max_occurances < count_noun:
                     max_occurances = count_noun
                     selected_noun = noun
@@ -72,6 +90,8 @@ def api(q):
         else:  # it can be an interjection: hello!
             search_query = sentense
     res = meme_query(str(search_query))
+    if res is None:
+        res = ""
 
     return jsonify({
         'author': 'George',
@@ -82,5 +102,4 @@ def api(q):
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=int(port))
-    
+    app.run(host='0.0.0.0', port=int(port))

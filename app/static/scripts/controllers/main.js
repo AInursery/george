@@ -9,18 +9,21 @@ angular.module('georgeApp')
         }];
 
         $scope.msgEntered = function () {
+            if (!$scope.msg) {
+                return;
+            }
             $scope.messages.push({
                 author: "Me",
                 body: $scope.msg
             });
             $http.get('/api/' + $scope.msg).
                 success(function (data, status, headers, config) {
-                    $scope.msg = "";
                     $scope.messages.push(data);
                     console.log(data);
                 }).
                 error(function (data, status, headers, config) {
                     alert(status + " " + data);
                 });
+            $scope.msg = "";
         };
     });
