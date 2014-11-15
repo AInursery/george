@@ -42,6 +42,7 @@ Note:  these are the 'modified' tags used for Penn tree banking; these are the t
 """
 
 import os
+import random
 from flask import Flask, jsonify
 from textblob import TextBlob
 
@@ -91,15 +92,21 @@ def api(q):
             search_query = sentense
     res = meme_query(str(search_query))
     if res is None:
-        res = ""
+        res = []
+
+    meme = random.choice(res[:3])
 
     return jsonify({
         'author': 'George',
-        'body': "<img src='%s' />" % res,
+        'body': """
+        <p>
+            <a href='{url}'>{title}</a>
+        </p>
+        <img src='{img}' />""".format(**meme),
         'sentiment': query.sentiment.polarity
     })
 
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(port))
+    app.run(port=int(port), debug=True)
