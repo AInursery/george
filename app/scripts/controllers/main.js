@@ -17,6 +17,7 @@ angular.module('georgeApp')
                 success(function (data, status, headers, config) {
                     $scope.msg = "";
                     $scope.messages.push(data);
+                    console.log(data);
                 }).
                 error(function (data, status, headers, config) {
                     alert(status + " " + data);
