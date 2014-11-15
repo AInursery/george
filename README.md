@@ -14,6 +14,7 @@ git clone https://github.com/AInursery/george
 cd george
 virtualenv .
 pip install -r requirements.txt
+npm install
 ```
 
 Running
