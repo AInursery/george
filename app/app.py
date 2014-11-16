@@ -39,8 +39,8 @@ intent_memes = {
     ],
     'personal_questions': [
         'http://knowyourmeme.com/memes/obama-rage-face-not-bad',
-        #'http://knowyourmeme.com/memes/upvoting-obama',
-        'http://knowyourmeme.com/memes/chuck-norris-facts',
+        'http://knowyourmeme.com/memes/upvoting-obama',
+        #'http://knowyourmeme.com/memes/chuck-norris-facts',
     ],
     'compliments': [
         'http://knowyourmeme.com/memes/good-guy-greg',
