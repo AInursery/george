@@ -39,7 +39,7 @@ intent_memes = {
     ],
     'personal_questions': [
         'http://knowyourmeme.com/memes/obama-rage-face-not-bad',
-        'http://knowyourmeme.com/memes/upvoting-obama',
+        #'http://knowyourmeme.com/memes/upvoting-obama',
         'http://knowyourmeme.com/memes/chuck-norris-facts',
     ],
     'compliments': [
@@ -98,9 +98,9 @@ def api(q):
         'author': 'George',
         'body': """
         <p>
-            <a href='{url}'>{title}</a>
+            <a href='{url}' title="{title}"><img src='{main_img}' alt="{title}" /></a>
         </p>
-        <img src='{main_img}' />""".format(**es_meme['_source']),
+        """.format(**es_meme['_source']),
     })
 
 
