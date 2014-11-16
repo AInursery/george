@@ -1,11 +1,11 @@
-from meme_sources import MemeSource
+from meme_sources import MemeSource, MemeItem
 
 from memoized_property import memoized_property
 import bs4 as BeautifulSoup
 import requests
 
 
-class MemeGeneratorItem(object):
+class MemeGeneratorItem(MemeItem):
 
     def __init__(self, meme_soup):
         self.meme_soup = meme_soup
@@ -58,7 +58,7 @@ class MemeGeneratorItem(object):
         return images_nb_row_soup.findAll('td')[1].text
 
     @memoized_property
-    def rank(self):
+    def score(self):
         images_nb_row_soup = self.details_table_soup.findAll('tr')[2]
         return images_nb_row_soup.findAll('td')[1].text[1:]
 
@@ -89,12 +89,12 @@ class MemeGenerator(MemeSource):
 
     def _get_meme_namespace(self, meme):
         result = {key: '' for key in ['title', 'img', 'url', 'img_count',
-                                      'rank']}
+                                      'score']}
         title = meme.title
         img = meme.main_img
         url = meme.url
         img_count = meme.img_count
-        rank = meme.rank
+        score = meme.score
 
         if title:
             result['title'] = title
@@ -104,6 +104,6 @@ class MemeGenerator(MemeSource):
             result['url'] = url
         if img_count:
             result['img_count'] = img_count
-        if rank:
-            result['rank'] = rank
+        if score:
+            result['score'] = score
         return result
