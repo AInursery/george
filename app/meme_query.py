@@ -3,6 +3,7 @@ import search
 import requests
 import bs4
 
+
 def get_memes_from_intents(intents):
     result = {}
     know_your_meme = KnowYourMeme()
@@ -36,24 +37,28 @@ def main():
                 if url and url['href'].startswith('/memes/'):
                     urls.add(base_url + url['href'])
 
-    fetch_page(popular_url)
+    # fetch_page(popular_url)
 
     # get pages
-    for page in range(100, 346):
+    for page in range(2, 346):
         fetch_page(base_url + "/memes/popular/page/%d" % page)
 
     know_your_meme = KnowYourMeme()
-    for url in urls:
+    nb_urls = len(urls)
+    print('{0} / {1}'.format(0, nb_urls))
+    for i, url in enumerate(urls):
+        if not i % 10:
+            print('{0} / {1}'.format(i+1, nb_urls))
         meme = know_your_meme.get_meme_from_url(url)
         search.submit(url, meme.get_namespace())
-         #test_intents = {
+    # test_intents = {
     #    'critiques': [
     #        'http://knowyourmeme.com/memes/neil-degrasse-tyson-reaction'],
     #    'greetings': [
     #        'http://knowyourmeme.com/memes/night-of-nights-night-of-knights',
     #        'http://knowyourmeme.com/memes/luigi-wins-by-doing-absolutely-nothing']
     #    }
-    #print(get_memes_from_intents(test_intents))
+    # print(get_memes_from_intents(test_intents))
 
 if __name__ == '__main__':
     main()
