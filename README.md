@@ -6,6 +6,12 @@ George the Meme Bot !
 Ask George something and he'll respond with an Internet Meme.
 
 
+Requirements
+------------
+- Python 2.7
+- Elasticsearch, launched as a local service ([Install guide](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html) / [Additionnal GUI](https://github.com/mobz/elasticsearch-head))
+
+
 Install
 -------
 
